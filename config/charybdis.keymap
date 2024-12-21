@@ -1,0 +1,162 @@
+#include <behaviors/mouse_keys.dtsi>
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/mouse.h>
+
+#define U_TAPPING_TERM 200
+
+&mt {
+    tapping-term-ms = <200>;
+    quick-tap-ms = <200>;
+    flavor = "tap-preferred";
+};
+
+&lt {
+    tapping-term-ms = <200>;
+    quick-tap-ms = <200>;
+};
+
+/ {
+    chosen { zmk,matrix_transform = &default_transform; };
+};
+
+/ {
+    behaviors {
+        hrm_right: hrm_right {
+            compatible = "zmk,behavior-hold-tap";
+            label = "Homerow Mods Right";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 30 31 32>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            flavor = "tap-preferred";
+        };
+
+        hrm_left: hrm_left {
+            compatible = "zmk,behavior-hold-tap";
+            label = "Homerow Mods Left";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            flavor = "tap-preferred";
+            hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 33 34>;
+        };
+
+        tapdance_parens: tapdance_parens {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAPDANCE_PARENS";
+            #binding-cells = <0>;
+            tapping-term-ms = <250>;
+            bindings = <&kp LEFT_PARENTHESIS>, <&kp RIGHT_PARENTHESIS>;
+        };
+
+        tapdance_curly: tapdance_curly {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAPDANCE_CURLY";
+            #binding-cells = <0>;
+            tapping-term-ms = <250>;
+            bindings = <&kp LEFT_BRACE>, <&kp RIGHT_BRACE>;
+        };
+
+        tapdance_square: tapdance_square {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAPDANCE_SQUARE";
+            #binding-cells = <0>;
+            tapping-term-ms = <250>;
+            bindings = <&kp LEFT_BRACKET>, <&kp RIGHT_BRACKET>;
+        };
+
+        tapdance_tab_mouselayer: tapdance_tab_mouselayer {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAPDANCE_TAB_MOUSELAYER";
+            #binding-cells = <0>;
+            tapping-term-ms = <250>;
+            bindings = <&mo 3>, <&kp TAB>;
+        };
+
+        tapdance_z_capslock: tapdance_z_capslock {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAPDANCE_Z_CAPSLOCK";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp Z>, <&kp CAPSLOCK>;
+        };
+    };
+
+    combos {
+        compatible = "zmk,combos";
+
+        toggle_mouse_layer {
+            bindings = <&tog 3>;
+            key-positions = <33 9>;
+        };
+
+        return_base_layer {
+            bindings = <&to 0>;
+            key-positions = <5 33>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        BASE {
+            bindings = <
+&kp Q             &kp W              &kp E             &kp R                   &kp T                                  &kp Y  &kp U                &kp I              &kp O               &kp P
+&hrm_left LALT A  &hrm_left LCTRL S  &hrm_left LCMD D  &hrm_left LEFT_SHIFT F  &kp G                                  &kp H  &hrm_right RSHIFT J  &hrm_right RGUI K  &hrm_right RCTRL L  &kp SEMI
+&kp Z             &kp X              &kp C             &kp V                   &kp B                                  &kp N  &lt 4 M              &kp COMMA          &kp PERIOD          &lt 5 SLASH
+                                                       &mt LSHIFT ESCAPE       &lt 1 SPACE  &tapdance_tab_mouselayer         &mt RCTRL ENTER      &lt 2 BACKSPACE
+            >;
+        };
+
+        Symbols {
+            bindings = <
+&kp EXCL                  &kp AT                        &kp POUND                    &kp DOLLAR                    &kp LEFT_PARENTHESIS          &kp RIGHT_PARENTHESIS  &kp PIPE                 &kp AMPERSAND                  &kp ASTERISK       &kp CARET
+&hrm_left LEFT_ALT GRAVE  &hrm_left LCTRL SINGLE_QUOTE  &hrm_left LEFT_GUI KP_MINUS  &hrm_left LEFT_SHIFT KP_PLUS  &kp LEFT_BRACE                &kp RIGHT_BRACE        &hrm_right RSHIFT UNDER  &hrm_right RIGHT_GUI KP_EQUAL  &kp DOUBLE_QUOTES  &kp TILDE
+&none                     &none                         &trans                       &kp PERCENT                   &kp LEFT_BRACKET              &kp RIGHT_BRACKET      &kp BACKSLASH            &trans                         &trans             &trans
+                                                                                     &trans                        &trans                &trans                         &trans                   &trans
+            >;
+        };
+
+        Navigation_numbers {
+            bindings = <
+&kp N1    &kp N2     &kp N3    &kp N4     &kp N5            &kp N6    &kp N7                       &kp N8                       &kp N9                  &kp N0
+&kp LALT  &kp LCTRL  &kp LGUI  &kp LSHFT  &kp TAB           &kp LEFT  &hrm_right RIGHT_SHIFT DOWN  &hrm_right RIGHT_COMMAND UP  &hrm_right RCTRL RIGHT  &kp RIGHT_ALT
+&trans    &trans     &trans    &trans     &trans            &trans    &trans                       &trans                       &trans                  &trans
+                               &kp F1     &kp F5   &kp F12            &trans                       &trans
+            >;
+        };
+
+        Mouse {
+            bindings = <
+&kp K_MUTE  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP  &trans  &mo 5           &trans  &trans     &trans            &trans  &trans
+&trans      &trans             &trans           &trans  &trans          &trans  &mkp LCLK  &mkp RCLK         &trans  &trans
+&trans      &trans             &trans           &trans  &trans          &trans  &trans     &trans            &trans  &trans
+                                                &trans  &trans  &trans          &kp F11    &kp RC(UP_ARROW)
+            >;
+        };
+
+        Scroll {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans          &trans  &trans
+            >;
+        };
+
+        keyboard_controls {
+            bindings = <
+&bootloader  &sys_reset  &trans  &trans  &trans          &bt BT_SEL 0  &bt BT_SEL 1    &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
+&trans       &trans      &trans  &trans  &trans          &bt BT_CLR    &bt BT_CLR_ALL  &bt BT_NXT    &bt BT_PRV    &trans
+&trans       &trans      &trans  &trans  &trans          &trans        &trans          &trans        &trans        &trans
+                                 &trans  &trans  &trans                &trans          &trans
+            >;
+        };
+    };
+};
