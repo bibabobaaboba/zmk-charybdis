@@ -3,6 +3,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/pointing.h>
 
 #define U_TAPPING_TERM 200
 
@@ -113,7 +114,17 @@
 
         lock_mac {
             bindings = <&screen_lock_mac>;
+            key-positions = <33 19>;
+        };
+
+        screenshot_area {
+            bindings = <&screenshot_area>;
             key-positions = <33 15>;
+        };
+
+        screenshot_default {
+            bindings = <&screenshot_default>;
+            key-positions = <33 16>;
         };
     };
 
@@ -123,6 +134,20 @@
             #binding-cells = <0>;
             bindings = <&kp LCTRL &kp LCMD &kp Q>;
             label = "SCREEN_LOCK_MAC";
+        };
+
+        screenshot_area: area_screen_shoot {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LCMD &kp DOLLAR>;
+            label = "AREA_SCREEN_SHOOT";
+        };
+
+        screenshot_default: screenshot_default {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LCMD &kp PERCENT>;
+            label = "SCREENSHOT_DEFAULT";
         };
     };
 
