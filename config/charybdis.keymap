@@ -131,21 +131,32 @@
         screen_lock_mac: screen_lock_mac {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LCTRL &kp LCMD &kp Q>;
+            bindings = 
+                <&macro_press &kp LCTRL>,
+                <&macro_press &kp LCMD>,
+                <&macro_tap &kp Q>,
+                <&macro_release &kp LCTRL>,
+                <&macro_release &kp LCMD>;
             label = "SCREEN_LOCK_MAC";
         };
 
         screenshot_area: area_screen_shoot {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LCMD &kp DOLLAR>;
+            bindings = 
+                <&macro_press &kp LCMD>,
+                <&macro_tap &kp DOLLAR>,
+                <&macro_release &kp LCMD>;
             label = "AREA_SCREEN_SHOOT";
         };
 
         screenshot_default: screenshot_default {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LCMD &kp PERCENT>;
+            bindings = 
+                <&macro_press &kp LCMD>,
+                <&macro_tap &kp PERCENT>,
+                <&macro_release &kp LCMD>;
             label = "SCREENSHOT_DEFAULT";
         };
     };
