@@ -90,19 +90,19 @@
 
     combos {
         compatible = "zmk,combos";
-
+       
         toggle_base_layer {
-            bindings = <&tog 0>;
+            bindings = <&to 0>;
             key-positions = <5 33>;
         };
 
         toggle_symbol_layer {
-            bindings = <&tog 1>;
+            bindings = <&to 1>;
             key-positions = <33 6>;
         };
 
         toggle_number_layer {
-            bindings = <&tog 2>;
+            bindings = <&to 2>;
             key-positions = <33 7>;
         };
 
@@ -111,17 +111,17 @@
             key-positions = <33 9>;
         };
 
-        lock_mac {
+        combo_macro_lock_mac {
             bindings = <&screen_lock_mac>;
             key-positions = <33 19>;
         };
 
-        screenshot_area {
+        combo_macro_screenshot_area {
             bindings = <&screenshot_area>;
             key-positions = <33 15>;
         };
 
-        screenshot_default {
+        combo_macro_screenshot_default {
             bindings = <&screenshot_default>;
             key-positions = <33 16>;
         };
@@ -140,14 +140,14 @@
             label = "SCREEN_LOCK_MAC";
         };
 
-        screenshot_area: area_screen_shoot {
+        screenshot_area: screenshot_area {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = 
                 <&macro_press &kp LCMD>,
                 <&macro_tap &kp DOLLAR>,
                 <&macro_release &kp LCMD>;
-            label = "AREA_SCREEN_SHOOT";
+            label = "SCREENSHOT_AREA";
         };
 
         screenshot_default: screenshot_default {
