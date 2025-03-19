@@ -3,6 +3,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/pointing.h>
 
 #define U_TAPPING_TERM 200
 
@@ -91,14 +92,38 @@
     combos {
         compatible = "zmk,combos";
 
+        toggle_base_layer {
+            bindings = <&tog 0>;
+            key-positions = <5 33>;
+        };
+
+        toggle_symbol_layer {
+            bindings = <&tog 1>;
+            key-positions = <33 6>;
+        };
+
+        toggle_number_layer {
+            bindings = <&tog 2>;
+            key-positions = <33 7>;
+        };
+
         toggle_mouse_layer {
             bindings = <&tog 3>;
             key-positions = <33 9>;
         };
 
-        return_base_layer {
-            bindings = <&to 0>;
-            key-positions = <5 33>;
+        lock_mac {
+            bindings = <&screen_lock_mac>;
+            key-positions = <33 15>;
+        };
+    };
+
+    macros {
+        screen_lock_mac: screen_lock_mac {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LCTRL &kp LCMD &kp Q>;
+            label = "SCREEN_LOCK_MAC";
         };
     };
 
@@ -109,16 +134,16 @@
             bindings = <
 &kp Q             &kp W              &kp E             &kp R                   &kp T                   &kp Y  &kp U                &kp I              &kp O               &kp P
 &hrm_left LALT A  &hrm_left LCTRL S  &hrm_left LCMD D  &hrm_left LEFT_SHIFT F  &kp G                   &kp H  &hrm_right RSHIFT J  &hrm_right RGUI K  &hrm_right RCTRL L  &hrm_right RALT SEMI
-&kp Z             &kp X              &kp C             &kp V                   &kp B                   &kp N  &lt 4 M              &kp COMMA          &lt 3 PERIOD        &lt 5 SLASH
+&lt 5 Z           &kp X              &kp C             &kp V                   &kp B                   &kp N  &lt 4 M              &kp COMMA          &lt 3 PERIOD        &lt 5 SLASH
                                                        &mt LSHIFT ESCAPE       &lt 1 SPACE  &lt 3 TAB         &mt RCTRL ENTER      &lt 2 BACKSPACE
             >;
         };
 
         Symbols {
             bindings = <
-&kp EXCL                  &kp AT                        &kp POUND                    &kp DOLLAR                    &kp LEFT_PARENTHESIS          &kp RIGHT_PARENTHESIS  &kp PIPE                 &kp AMPERSAND                  &kp ASTERISK       &kp CARET
-&hrm_left LEFT_ALT GRAVE  &hrm_left LCTRL SINGLE_QUOTE  &hrm_left LEFT_GUI KP_MINUS  &hrm_left LEFT_SHIFT KP_PLUS  &kp LEFT_BRACE                &kp RIGHT_BRACE        &hrm_right RSHIFT UNDER  &hrm_right RIGHT_GUI KP_EQUAL  &kp DOUBLE_QUOTES  &kp TILDE
-&kp CAPS                  &none                         &trans                       &kp PERCENT                   &kp LEFT_BRACKET              &kp RIGHT_BRACKET      &kp BACKSLASH            &trans                         &trans             &trans
+&kp EXCL                  &kp AT                        &kp POUND                    &kp DOLLAR                    &kp LEFT_PARENTHESIS          &kp RIGHT_PARENTHESIS  &kp PIPE                 &kp AMPERSAND                  &kp ASTERISK                    &kp CARET
+&hrm_left LEFT_ALT GRAVE  &hrm_left LCTRL SINGLE_QUOTE  &hrm_left LEFT_GUI KP_MINUS  &hrm_left LEFT_SHIFT KP_PLUS  &kp LEFT_BRACE                &kp RIGHT_BRACE        &hrm_right RSHIFT UNDER  &hrm_right RIGHT_GUI KP_EQUAL  &hrm_right RCTRL DOUBLE_QUOTES  &hrm_right RIGHT_ALT TILDE
+&kp CAPS                  &none                         &trans                       &kp PERCENT                   &kp LEFT_BRACKET              &kp RIGHT_BRACKET      &kp BACKSLASH            &trans                         &trans                          &kp CAPS
                                                                                      &trans                        &trans                &trans                         &trans                   &trans
             >;
         };
@@ -127,7 +152,7 @@
             bindings = <
 &kp N1    &kp N2     &kp N3    &kp N4     &kp N5            &kp N6    &kp N7                       &kp N8                       &kp N9                  &kp N0
 &kp LALT  &kp LCTRL  &kp LGUI  &kp LSHFT  &kp TAB           &kp LEFT  &hrm_right RIGHT_SHIFT DOWN  &hrm_right RIGHT_COMMAND UP  &hrm_right RCTRL RIGHT  &kp RIGHT_ALT
-&kp CAPS  &trans     &trans    &trans     &trans            &trans    &trans                       &trans                       &trans                  &trans
+&kp CAPS  &trans     &trans    &trans     &trans            &trans    &trans                       &trans                       &trans                  &kp CAPS
                                &kp F1     &kp F5   &kp F12            &trans                       &trans
             >;
         };
@@ -136,7 +161,7 @@
             bindings = <
 &kp K_MUTE    &kp C_VOLUME_DOWN  &kp C_VOLUME_UP   &trans      &mo 5           &trans  &kp C_BRIGHTNESS_INC  &kp C_BRIGHTNESS_DEC  &trans  &trans
 &kp LALT      &kp LCTRL          &kp LEFT_COMMAND  &kp LSHIFT  &trans          &trans  &mkp LCLK             &mkp RCLK             &trans  &trans
-&kp CAPSLOCK  &trans             &trans            &trans      &trans          &trans  &trans                &trans                &trans  &trans
+&kp CAPSLOCK  &trans             &trans            &trans      &trans          &trans  &trans                &trans                &trans  &kp CAPS
                                                    &trans      &trans  &trans          &kp F11               &kp RC(UP_ARROW)
             >;
         };
